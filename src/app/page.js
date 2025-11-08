@@ -88,7 +88,7 @@ export default function Home() {
 
         {/* Description */}
         <p className="text-lg sm:text-xl text-gray-300 mb-8 md:mb-12 max-w-md mx-auto leading-relaxed px-4">
-          Something amazing is in the works! We're building an incredible experience for you. Stay tuned for the launch!
+          Something amazing is in the works! Skillup is building an incredible experience for you. Stay tuned for the launch!
         </p>
 
         {/* Countdown Timer */}
