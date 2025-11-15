@@ -6,8 +6,10 @@ import {
   FiX, FiChevronLeft, FiChevronRight, FiSun, FiMoon, 
   FiZoomIn, FiZoomOut, FiDownload, FiInfo, FiRotateCw 
 } from 'react-icons/fi';
+import { useColors } from '@/app/hooks/useColorSchema'; 
 
 const Gallery = () => {
+  const { colors, getClasses, getStyles } = useColors();
   const [photos, setPhotos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -205,7 +207,7 @@ const Gallery = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-white transition-colors duration-300">
+      <div className={`min-h-screen flex items-center justify-center ${getClasses('bg', 'neutral')} transition-colors duration-300`}>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -214,13 +216,13 @@ const Gallery = () => {
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-            className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full mb-4"
+            className="w-12 h-12 border-4 border-[#CB342A] border-t-transparent rounded-full mb-4"
           />
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
-            className="text-gray-600"
+            className={getClasses('text', 'neutral')}
           >
             Loading your memories...
           </motion.p>
@@ -231,7 +233,7 @@ const Gallery = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-white transition-colors duration-300">
+      <div className={`min-h-screen flex items-center justify-center ${getClasses('bg', 'neutral')} transition-colors duration-300`}>
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -241,7 +243,7 @@ const Gallery = () => {
           <p>{error}</p>
           <button
             onClick={() => window.location.reload()}
-            className="mt-4 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md transition-colors"
+            className={`mt-4 px-4 py-2 ${getClasses('button', 'primary')} rounded-md transition-colors`}
           >
             Try Again
           </button>
@@ -251,7 +253,7 @@ const Gallery = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#eaf6fe] px-2  sm:px-6 py-10 lg:px-8 transition-colors duration-300">
+    <div className={`min-h-screen bg-[#FEFDFD] px-2 sm:px-6 py-10 lg:px-8 transition-colors duration-300`}>
       <div className="max-w-7xl mx-auto">
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
@@ -259,23 +261,21 @@ const Gallery = () => {
           transition={{ duration: 0.5 }}
           className="flex justify-center w-full mb-8"
         >
-      
-                 <motion.h1 
-        className="text-center text-4xl sm:text-5xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-10"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-      >
-        Gallery
-      </motion.h1>
-      
+          <motion.h1 
+            className="text-center text-4xl sm:text-5xl font-bold bg-gradient-to-r from-[#CB342A] to-[#D65F57] bg-clip-text text-transparent mb-10"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            Gallery
+          </motion.h1>
         </motion.div>
 
         {photos.length === 0 ? (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-center py-16 text-gray-500"
+            className={`text-center py-16 ${getClasses('text', 'neutral')}`}
           >
             <FiInfo size={48} className="mx-auto mb-4 opacity-50" />
             <h3 className="text-xl font-medium mb-2">No photos yet</h3>
@@ -339,8 +339,8 @@ const Gallery = () => {
               className="relative max-w-6xl w-full max-h-[90vh] flex flex-col"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex justify-between items-center p-4 bg-white/90 backdrop-blur-sm rounded-t-lg z-20 border-b">
-                <div className="text-gray-700 text-sm">
+              <div className={`flex justify-between items-center p-4 bg-white/90 backdrop-blur-sm rounded-t-lg z-20 border-b ${getClasses('border', 'neutral')}`}>
+                <div className={`${getClasses('text', 'neutral')} text-sm`}>
                   {selectedIndex + 1} of {photos.length} • {new Date(selectedImage.created_at).toLocaleDateString()}
                 </div>
                 <div className="flex items-center gap-2">
@@ -348,7 +348,7 @@ const Gallery = () => {
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                     onClick={() => setShowInfo(prev => !prev)}
-                    className={`p-2 rounded-full ${showInfo ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+                    className={`p-2 rounded-full ${showInfo ? `${getClasses('bg', 'primary')} text-white` : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
                     aria-label="Toggle info"
                   >
                     <FiInfo size={18} />
@@ -419,7 +419,7 @@ const Gallery = () => {
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    className="absolute top-16 left-4 bg-white/90 backdrop-blur-sm text-gray-700 p-4 rounded-lg z-20 max-w-xs text-sm shadow-lg border"
+                    className={`absolute top-16 left-4 bg-white/90 backdrop-blur-sm ${getClasses('text', 'neutral')} p-4 rounded-lg z-20 max-w-xs text-sm shadow-lg ${getClasses('border', 'neutral')}`}
                   >
                     <h4 className="font-medium mb-2">Image Information</h4>
                     <p>Filename: {selectedImage.public_id}</p>
@@ -497,7 +497,7 @@ const Gallery = () => {
                 </motion.button>
               </div>
 
-              <div className="p-4 text-center text-gray-500 text-sm border-t bg-white/80">
+              <div className={`p-4 text-center ${getClasses('text', 'neutral')} text-sm border-t bg-white/80 ${getClasses('border', 'neutral')}`}>
                 Use mouse wheel to zoom • Click and drag when zoomed in • Swipe to navigate
                 <br />
                 Keyboard shortcuts: ← → arrows, +/- zoom, 0 reset, R rotate, I info, Esc close

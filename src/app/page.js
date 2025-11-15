@@ -1,11 +1,13 @@
 // components/Home.jsx
 'use client';
-
-import { useState, useEffect } from 'react';
+import Review from "@/app/components/review";
+import Typography from "@/app/components/ui/home/typography";
+import WhyChooseUs from "./components/ui/home/whyChooseUS";
 
 export default function Home() {
   return (
-       <section className="relative">
+    <>
+      <section className="relative">
         <div className="absolute inset-0 overflow-hidden " />
         <video
           autoPlay
@@ -22,11 +24,33 @@ export default function Home() {
           />
           {/* Default video source for larger screens */}
           <source
-            src="https://res.cloudinary.com/dni5zov67/video/upload/v1763104910/IMG_4968_1_oit31l.mp4"
+            src="https://res.cloudinary.com/dni5zov67/video/upload/v1763105959/IMG_4981_dfxvcl.mp4"
             type="video/mp4"
           />
           Your browser does not support the video tag.
         </video>
       </section>
-  )
+
+       <div className=" w-full flex justify-center pt-9">
+            <Typography
+              texts={["CANADA", "AUSTRALIA", "USA", "UK", "NEW ZEALAND"]}
+              mainClassName={
+                "px-4 sm:px-6 md:px-8 bg-white/85 text-[#cd3435]  overflow-hidden py-2 sm:py-3 md:py-4 justify-center rounded-lg text-5xl  sm:text-3xl md:text-5xl font-semibold"
+              }
+              staggerFrom={"last"}
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "-120%" }}
+              staggerDuration={0.025}
+              splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
+              transition={{ type: "spring", damping: 30, stiffness: 400 }}
+              rotationInterval={2000}
+            />
+          </div>
+
+      <WhyChooseUs />
+
+      <Review />
+    </>
+  );
 }
