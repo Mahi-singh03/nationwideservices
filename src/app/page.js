@@ -18,7 +18,7 @@ export default function Home() {
         >
           {/* Mobile-first video source */}
           <source
-            src="https://res.cloudinary.com/dufxj1sau/video/upload/v1742188663/Welcome_to_our_2_asgquc.mp4"
+            src="/hero.mp4"
             type="video/mp4"
             media="(max-width: 768px)"
           />
