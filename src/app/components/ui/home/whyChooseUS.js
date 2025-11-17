@@ -10,6 +10,7 @@ import Knowledge from '@/app/components/additionals/Knowledge.json';
 const WhyChooseUs = () => {
   const { getClasses, getStyles } = useColors();
   const [isVisible, setIsVisible] = useState(false);
+  const [failedLogos, setFailedLogos] = useState([]);
 
   useEffect(() => {
     setIsVisible(true);
@@ -258,13 +259,41 @@ const WhyChooseUs = () => {
             <h3 className="text-2xl font-bold text-center mb-8 text-gray-800">
               Trusted by Leading Institutions Worldwide
             </h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-6">
-              {[1,2,3,4,5,6,7].map((item) => (
-                <div key={item} className="bg-white rounded-lg p-4 h-24 flex items-center justify-center shadow-sm border border-gray-100">
-                  <span className="text-gray-400 text-sm">University Logo {item}</span>
-                </div>
-              ))}
-            </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-6">
+                {(
+                  Knowledge.partnerships?.proudPartnersWith || []
+                ).map((uni, idx) => {
+                  const slug = uni
+                    .toLowerCase()
+                    .replace(/\s+/g, '-')
+                    .replace(/[^a-z0-9-]/g, '');
+                  const src = `/logos/${slug}.png`;
+
+                  return (
+                    <div
+                      key={uni + idx}
+                      className="bg-white rounded-lg p-4 h-32 flex items-center justify-center shadow-sm border border-gray-100 overflow-hidden"
+                    >
+                      {!failedLogos.includes(idx) ? (
+                        <Image
+                          src={src}
+                          alt={uni}
+                          width={160}
+                          height={120}
+                          className="object-contain max-h-24 f"
+                          onError={() => setFailedLogos((p) => Array.from(new Set([...p, idx])))}
+                          loading="lazy"
+                        />
+                      ) : (
+                        <div className="text-center px-2">
+                          <div className="text-gray-700 font-medium text-sm">{uni}</div>
+                          <div className="text-gray-400 text-xs">Logo unavailable</div>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
           </motion.div>
         </div>
       </motion.section>
@@ -534,59 +563,6 @@ const WhyChooseUs = () => {
         </div>
       </motion.section>
 
-      {/* Final CTA Section */}
-      <motion.section
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="py-20 px-4 sm:px-6 lg:px-8 bg-white"
-      >
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.h2 
-            className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            Ready to Start Your International Journey?
-          </motion.h2>
-          
-          <motion.p 
-            className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            Join thousands of successful students who trusted Nationwide for their international education dreams. Take the first step towards your global career today.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-          >
-            <button className={`px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg ${getClasses('button', 'primary')}`}>
-              Book Free Consultation
-            </button>
-            <button className={`px-8 py-4 rounded-lg font-semibold text-lg border-2 transition-all duration-300 transform hover:scale-105 ${getClasses('button', 'outline')}`}>
-              Download Brochure
-            </button>
-            <button className={`px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 ${getClasses('button', 'secondary')}`}>
-              Call Us Now
-            </button>
-          </motion.div>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="text-gray-500 mt-8"
-          >
-            📞 Contact us today: {contactPhones.length ? contactPhones.join(' | ') : 'Contact numbers unavailable'}
-          </motion.p>
-        </div>
-      </motion.section>
     </div>
   );
 };

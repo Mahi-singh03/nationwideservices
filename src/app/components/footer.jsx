@@ -386,23 +386,7 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Scroll to Top Button */}
-      <AnimatePresence>
-        {isVisible && (
-          <motion.button
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0 }}
-            onClick={scrollToTop}
-            className={`fixed bottom-24 right-4 z-50 p-3 rounded-full shadow-lg ${getClasses('button', 'primary')} hover:shadow-xl transition-all duration-300 backdrop-blur-sm bg-opacity-90`}
-            whileHover={{ scale: 1.1, y: -2 }}
-            whileTap={{ scale: 0.9 }}
-            aria-label="Scroll to top"
-          >
-            <FaChevronUp className="h-5 w-5 text-white" />
-          </motion.button>
-        )}
-      </AnimatePresence>
+      
 
 
     </footer>

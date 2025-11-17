@@ -7,7 +7,7 @@ export async function POST(request) {
       return new Response(
         JSON.stringify({ 
           error: "Please provide a valid message",
-          suggestion: "Ask about courses, admissions, fees, or any other institute information"
+          suggestion: "Ask about study abroad opportunities, university partnerships, visa consultation, or admission processes"
         }), {
         status: 400,
         headers: { "Content-Type": "application/json" },
@@ -31,7 +31,7 @@ export async function POST(request) {
       return new Response(
         JSON.stringify({ 
           error: "Service temporarily unavailable",
-          suggestion: "Please contact the institute directly for immediate assistance"
+          suggestion: "Please contact Nationwide directly for immediate assistance"
         }), {
         status: 503,
         headers: { "Content-Type": "application/json" },
@@ -41,17 +41,100 @@ export async function POST(request) {
     // Load knowledge base with caching
     let knowledgeBase;
     try {
-      knowledgeBase = await import("../../components/skillup-knowledge.json")
-        .then((module) => module.default)
-        .catch(() => {
-          throw new Error("Knowledge base not available");
-        });
+      knowledgeBase = {
+        "instituteName": "Nationwide",
+        "tagline": "Get your best here",
+        "partnerships": {
+          "proudPartnersWith": [
+            "The University of Melbourne",
+            "The University of Sydney",
+            "Deakin University",
+            "RMIT University",
+            "The University of Queensland",
+            "Monash University",
+            "La Trobe University"
+          ],
+          "associatedWith": [
+            "RCIC (Regulated Canadian Immigration Consultant)",
+            "CRIC (Canadian Regulatory Immigration Consultant)"
+          ]
+        },
+        "contact": {
+          "offices": [
+            {
+              "country": "Canada",
+              "address": "23 Westmore Drive, Unit #301 B, Toronto M9V 3Y6",
+              "phone": ["+1 905-462-6465", "+1 647-706-0737"]
+            },
+            {
+              "country": "India",
+              "address": "Chandigarh Road, Opp. Osho Dhara Hospital, Near Khalsa School, Nawanshahr",
+              "phone": ["+91-96272-00088"]
+            }
+          ],
+          "socialMedia": {
+            "instagram": true,
+            "facebook": true,
+            "youtube": true,
+            "linkedin": true
+          }
+        },
+        "services": {
+          "studyAbroad": [
+            "Canada",
+            "Australia"
+          ],
+          "consultation": [
+            "Study Visa Counselling",
+            "University Selection",
+            "Course Guidance",
+            "Application & Documentation Support",
+            "Scholarship Assistance",
+            "Pre-departure Guidance"
+          ]
+        },
+        "admissions": {
+          "process": "Visit any Nationwide office or contact them via phone/social media for counselling, course selection, document assessment, and university application submission.",
+          "intakes": ["February", "July", "November"],
+          "eligibility": "Eligibility varies by university and program; generally requires academic transcripts, English proficiency test scores, and valid identification documents."
+        },
+        "fees": {
+          "counselling": "Free initial counselling",
+          "additionalCharges": "Processing fees may apply depending on university and visa requirements."
+        },
+        "highlights": [
+          "Direct Partnerships with Top Australian Universities",
+          "Registered Canadian Immigration Consultants",
+          "Guidance from Experienced Professionals",
+          "Multiple Office Locations in India and Canada",
+          "Transparent & Genuine Visa Consultation",
+          "Support for Students from Application to Arrival"
+        ],
+        "faqs": [
+          {
+            "q": "Do you help with visa filing?",
+            "a": "Yes, Nationwide assists with complete visa documentation and filing."
+          },
+          {
+            "q": "Are the counsellors certified?",
+            "a": "Yes, the institute is associated with RCIC and CRIC certified consultants."
+          },
+          {
+            "q": "Do you help with university selection?",
+            "a": "Absolutely. Nationwide guides students in choosing the right university based on their profile."
+          },
+          {
+            "q": "Can I get support after reaching abroad?",
+            "a": "Yes, students receive pre-departure guidance and basic settlement support."
+          }
+        ]
+      };
     } catch (error) {
       console.error("Failed to load knowledge base:", error);
       return new Response(
         JSON.stringify({ 
           error: "Service configuration issue",
-          suggestion: "Please contact the institute directly for accurate information"
+          suggestion: "Please contact Nationwide directly for accurate information"
         }), {
         status: 500,
         headers: { "Content-Type": "application/json" },
@@ -72,9 +155,9 @@ export async function POST(request) {
       return modelConfigs[modelId] || { model: modelId, apiVersion: "v1" };
     }
 
-    // Enhanced prompt with structured context
+    // Enhanced prompt with structured context for Nationwide
     const enhancedPrompt = `
-You are a helpful AI assistant for Skill Up Institute of Learning. Your role is to provide accurate, friendly, and professional information about the institute.
+You are a helpful AI assistant for Nationwide - "Get your best here". Your role is to provide accurate, friendly, and professional information about study abroad opportunities and immigration consulting.
 
 INSTITUTE CONTEXT:
 ${JSON.stringify(knowledgeBase, null, 2)}
@@ -83,27 +166,38 @@ USER QUESTION: "${message}"
 
 RESPONSE GUIDELINES:
 1. PRIMARY FOCUS: Use the knowledge base above to answer questions about:
-   - Courses, durations, fees, and departments
+   - Study abroad opportunities in Canada and Australia
+   - University partnerships and direct collaborations
+   - Visa consultation and immigration services
    - Admission process, intakes, and eligibility
-   - Contact information and institute details
-   - Placement assistance and support
-   - Distance education programs
+   - Free counselling and fee structure
+   - Office locations and contact information
 
 2. RESPONSE STYLE:
    - Be warm, professional, and encouraging
    - Use clear, simple language with proper formatting
+   - Highlight the key partnerships with top Australian universities
+   - Emphasize the RCIC/CRIC certification for credibility
    - Break complex information into bullet points when helpful
-   - Always maintain a positive tone about the institute
+   - Always maintain a positive and supportive tone
 
 3. BOUNDARIES:
-   - If information is not in the knowledge base, politely admit it and suggest contacting the institute
-   - For unrelated topics, gently redirect to institute services
+   - If information is not in the knowledge base, politely admit it and suggest contacting Nationwide directly
+   - For unrelated topics, gently redirect to study abroad and immigration services
    - Never invent or hallucinate information not present in the knowledge base
+   - Always verify information against the provided knowledge base
 
 4. FORMATTING:
-   - Use emojis sparingly to make responses engaging
-   - Structure information logically
-   - End with an encouraging note or next steps
+   - Use emojis sparingly to make responses engaging (🌍 for international, 🎓 for education, 📞 for contact)
+   - Structure information logically with clear sections
+   - End with an encouraging note or next steps for the user
+
+5. KEY POINTS TO EMPHASIZE:
+   - Direct partnerships with top Australian universities
+   - RCIC/CRIC certified consultants for Canadian immigration
+   - Free initial counselling service
+   - Multiple office locations in Canada and India
+   - Complete support from application to arrival
 
 Please provide a helpful, accurate response based on the knowledge base:
 `;
@@ -252,8 +346,8 @@ Please provide a helpful, accurate response based on the knowledge base:
       
       let userFriendlyError = {
         error: "I'm having trouble processing your request right now",
-        suggestion: "Please try again in a moment, or contact the institute directly for immediate assistance",
-        contact: knowledgeBase.contact
+        suggestion: "Please try again in a moment, or contact Nationwide directly for immediate assistance",
+        contact: knowledgeBase.contact.offices
       };
 
       // Specific error handling
@@ -261,13 +355,13 @@ Please provide a helpful, accurate response based on the knowledge base:
         userFriendlyError = {
           error: "Service is busy",
           suggestion: "Please wait a moment and try again",
-          contact: knowledgeBase.contact
+          contact: knowledgeBase.contact.offices
         };
       } else if (upstream.status === 403) {
         userFriendlyError = {
           error: "Service temporarily unavailable",
-          suggestion: "Please contact the institute directly for assistance",
-          contact: knowledgeBase.contact
+          suggestion: "Please contact Nationwide directly for assistance",
+          contact: knowledgeBase.contact.offices
         };
       }
 
@@ -282,13 +376,17 @@ Please provide a helpful, accurate response based on the knowledge base:
     const botReply = data?.candidates?.[0]?.content?.parts?.[0]?.text || 
       `I apologize, but I'm having trouble generating a response right now. 
 
-For accurate and immediate information about Skill Up Institute, please:
+🌍 For accurate and immediate information about Nationwide study abroad opportunities, please contact us:
 
-📞 Call: ${knowledgeBase.contact.phone.join(" or ")}
-📧 Email: ${knowledgeBase.contact.email}
-🌐 Visit: ${knowledgeBase.contact.website}
+Canada Office:
+📍 ${knowledgeBase.contact.offices[0].address}
+📞 ${knowledgeBase.contact.offices[0].phone.join(" or ")}
 
-Our team will be happy to assist you with any questions about courses, admissions, or fees!`;
+India Office:
+📍 ${knowledgeBase.contact.offices[1].address}
+📞 ${knowledgeBase.contact.offices[1].phone.join(" or ")}
+
+Our certified consultants will be happy to assist you with university selection, visa processing, and all your study abroad needs!`;
 
     return new Response(
       JSON.stringify({ 
@@ -313,8 +411,16 @@ Our team will be happy to assist you with any questions about courses, admission
       error: "Something went wrong on our end",
       suggestion: "Please try again in a few moments, or contact us directly for assistance",
       contact: {
-        phone: ["98551-46491", "94639-26371"],
-        email: "info@skillupinstitute.co.in"
+        offices: [
+          {
+            country: "Canada",
+            phone: ["+1 905-462-6465", "+1 647-706-0737"]
+          },
+          {
+            country: "India", 
+            phone: ["+91-96272-00088"]
+          }
+        ]
       }
     };
 
