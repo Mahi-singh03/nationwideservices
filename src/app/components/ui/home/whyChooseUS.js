@@ -83,8 +83,8 @@ const WhyChooseUs = () => {
   // Photo data - replace these with your actual images
   const photos = {
     hero: '/images/hero-students.jpg', // Group of successful students
-    office: '/images/office-interior.jpg', // Modern office space
-    counselling: '/images/counselling-session.jpg', // Student counselling session
+    office: 'https://res.cloudinary.com/dni5zov67/image/upload/v1763531042/WhatsApp_Image_2025-11-19_at_11.04.33_AM_ldex7t.jpg',
+    counselling: 'https://res.cloudinary.com/dni5zov67/image/upload/v1763531454/WhatsApp_Image_2025-11-19_at_11.04.39_AM_q1oxr0.jpg', // Student counselling session
     university: '/images/university-campus.jpg', // Partner university campus
     success: '/images/success-stories.jpg', // Graduation celebration
     team: '/images/consultant-team.jpg' // Our expert team
@@ -145,7 +145,7 @@ const WhyChooseUs = () => {
               <div className="absolute inset-0 bg-gradient-to-br from-[#CB342A] to-[#BCAE9F] flex items-center justify-center">
                 <span className="text-white text-lg">Office Interior Photo</span>
               </div>
-              {/* Replace with: <Image src={photos.office} alt="Our Office" fill className="object-cover" /> */}
+               <Image src={photos.office} alt="Our Office" fill className="object-cover" />
             </motion.div>
           </div>
 
@@ -259,7 +259,7 @@ const WhyChooseUs = () => {
             <h3 className="text-2xl font-bold text-center mb-8 text-gray-800">
               Trusted by Leading Institutions Worldwide
             </h3>
-              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-6">
+              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
                 {(
                   Knowledge.partnerships?.proudPartnersWith || []
                 ).map((uni, idx) => {
@@ -325,7 +325,7 @@ const WhyChooseUs = () => {
               <div className="absolute inset-0 bg-gradient-to-br from-[#BCAE9F] to-[#CB342A] flex items-center justify-center">
                 <span className="text-white text-lg">Counselling Session Photo</span>
               </div>
-              {/* Replace with: <Image src={photos.counselling} alt="Student Counselling" fill className="object-cover" /> */}
+             <Image src={photos.counselling} alt="Student Counselling" fill className="object-cover" />
             </motion.div>
 
             {/* Services List */}

@@ -7,7 +7,7 @@ import WhyChooseUs from "./components/ui/home/whyChooseUS";
 export default function Home() {
   return (
     <>
-      <section className="relative">
+      <section className="relative lg:pt-10">
         <div className="absolute inset-0 overflow-hidden " />
         <video
           autoPlay
