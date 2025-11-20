@@ -1,3 +1,5 @@
+import knowledgeBase from "../../components/additionals/Knowledge.json";
+
 export async function POST(request) {
   try {
     const { message, conversationId } = await request.json();
@@ -34,109 +36,6 @@ export async function POST(request) {
           suggestion: "Please contact Nationwide directly for immediate assistance"
         }), {
         status: 503,
-        headers: { "Content-Type": "application/json" },
-      });
-    }
-
-    // Load knowledge base with caching
-    let knowledgeBase;
-    try {
-      knowledgeBase = {
-        "instituteName": "Nationwide",
-        "tagline": "Get your best here",
-        "partnerships": {
-          "proudPartnersWith": [
-            "The University of Melbourne",
-            "The University of Sydney",
-            "Deakin University",
-            "RMIT University",
-            "The University of Queensland",
-            "Monash University",
-            "La Trobe University"
-          ],
-          "associatedWith": [
-            "RCIC (Regulated Canadian Immigration Consultant)",
-            "CRIC (Canadian Regulatory Immigration Consultant)"
-          ]
-        },
-        "contact": {
-          "offices": [
-            {
-              "country": "Canada",
-              "address": "23 Westmore Drive, Unit #301 B, Toronto M9V 3Y6",
-              "phone": ["+1 905-462-6465", "+1 647-706-0737"]
-            },
-            {
-              "country": "India",
-              "address": "Chandigarh Road, Opp. Osho Dhara Hospital, Near Khalsa School, Nawanshahr",
-              "phone": ["+91-96272-00088"]
-            }
-          ],
-          "socialMedia": {
-            "instagram": true,
-            "facebook": true,
-            "youtube": true,
-            "linkedin": true
-          }
-        },
-        "services": {
-          "studyAbroad": [
-            "Canada",
-            "Australia"
-          ],
-          "consultation": [
-            "Study Visa Counselling",
-            "University Selection",
-            "Course Guidance",
-            "Application & Documentation Support",
-            "Scholarship Assistance",
-            "Pre-departure Guidance"
-          ]
-        },
-        "admissions": {
-          "process": "Visit any Nationwide office or contact them via phone/social media for counselling, course selection, document assessment, and university application submission.",
-          "intakes": ["February", "July", "November"],
-          "eligibility": "Eligibility varies by university and program; generally requires academic transcripts, English proficiency test scores, and valid identification documents."
-        },
-        "fees": {
-          "counselling": "Free initial counselling",
-          "additionalCharges": "Processing fees may apply depending on university and visa requirements."
-        },
-        "highlights": [
-          "Direct Partnerships with Top Australian Universities",
-          "Registered Canadian Immigration Consultants",
-          "Guidance from Experienced Professionals",
-          "Multiple Office Locations in India and Canada",
-          "Transparent & Genuine Visa Consultation",
-          "Support for Students from Application to Arrival"
-        ],
-        "faqs": [
-          {
-            "q": "Do you help with visa filing?",
-            "a": "Yes, Nationwide assists with complete visa documentation and filing."
-          },
-          {
-            "q": "Are the counsellors certified?",
-            "a": "Yes, the institute is associated with RCIC and CRIC certified consultants."
-          },
-          {
-            "q": "Do you help with university selection?",
-            "a": "Absolutely. Nationwide guides students in choosing the right university based on their profile."
-          },
-          {
-            "q": "Can I get support after reaching abroad?",
-            "a": "Yes, students receive pre-departure guidance and basic settlement support."
-          }
-        ]
-      };
-    } catch (error) {
-      console.error("Failed to load knowledge base:", error);
-      return new Response(
-        JSON.stringify({ 
-          error: "Service configuration issue",
-          suggestion: "Please contact Nationwide directly for accurate information"
-        }), {
-        status: 500,
         headers: { "Content-Type": "application/json" },
       });
     }

@@ -1,12 +1,11 @@
-import crypto from 'crypto';
+import { v2 as cloudinary } from 'cloudinary';
 
-const utils = {
-  // Minimal implementation to satisfy api_sign_request usage in the app.
-  api_sign_request: (params = {}, apiSecret = '') => {
-    const keys = Object.keys(params).sort();
-    const toSign = keys.map((k) => `${k}=${params[k]}`).join('&');
-    return crypto.createHash('sha1').update(toSign + apiSecret).digest('hex');
-  },
-};
+// Configure Cloudinary using environment variables
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME || process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+  secure: true,
+});
 
-export default { utils };
+export default cloudinary;
