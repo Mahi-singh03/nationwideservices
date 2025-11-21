@@ -24,7 +24,7 @@ export default function Home() {
           />
           {/* Default video source for larger screens */}
           <source
-            src="https://res.cloudinary.com/dni5zov67/video/upload/v1763105959/IMG_4981_dfxvcl.mp4"
+            src="https://res.cloudinary.com/dni5zov67/video/upload/v1763705358/IMG_4981_dfxvcl_online-video-cutter.com_1_ag8tfh.mp4"
             type="video/mp4"
           />
           Your browser does not support the video tag.
